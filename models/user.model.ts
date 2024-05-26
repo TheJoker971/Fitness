@@ -6,6 +6,7 @@ export interface IUser {
     password:string;
     acceses:number;
     salles:ISalle[] | [];
+    active:boolean;
 }
 
 export const userSchema = new Schema<IUser> ({
@@ -26,6 +27,10 @@ export const userSchema = new Schema<IUser> ({
     salles:{
         type:[Schema.Types.ObjectId],
         ref:'Salles',
+        required:true
+    },
+    active:{
+        type:Schema.Types.Boolean,
         required:true
     }
 },{

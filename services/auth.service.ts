@@ -33,7 +33,10 @@ export class AuthService{
                 login:login,
                 password:SecurityUtils.toSHA256(password)
             }).exec();
-            if(user !== null){
+            if(user !== null ){
+                if(user.active){
+                    return ServiceResult.failed();
+                }
                 let expiration = new Date().getTime() + 1800000;
                 let session = await this.sessionModel.findOne({
                     user:user
