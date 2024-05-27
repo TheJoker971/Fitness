@@ -18,11 +18,11 @@ export class UserService{
             return ServiceResult.failed();
         }
     }
-    async editUser(id:string,active:boolean){
+    async editUser(id:string,info:any){
         try{
             const update = await this.userModel.updateOne({
                 _id:id
-            },{$set:{active:active}});
+            },{$set:info});
             return ServiceResult.success(update);
         }catch(err){
             return ServiceResult.failed();

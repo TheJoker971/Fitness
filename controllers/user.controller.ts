@@ -13,7 +13,7 @@ export class UserController{
 
 
     async editUser(req:Request,res:Response){
-        const sr = await this.userService.editUser(req.params.id,req.body.active);
+        const sr = await this.userService.editUser(req.params.id,req.body);
         switch(sr.errorCode){
             case ServiceErrorCode.success:
                 res.status(200).json(sr.result);

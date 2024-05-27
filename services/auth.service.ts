@@ -51,7 +51,7 @@ export class AuthService{
                                 token:SecurityUtils.randomToken(),
                                 expiration:expiration
                             }
-                        });
+                        }).exec();
                         return ServiceResult.success(session);
                     }else{
                         return ServiceResult.success(user);
