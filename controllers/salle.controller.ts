@@ -18,9 +18,11 @@ export class SalleController {
     async createSalle(req: Request, res: Response){
         const sr = await this.salleService.create(
             req.body.name,
-            req.body.country,
-            req.body.city,
-            req.body.way
+            req.body.address,
+            req.body.description,
+            req.body.contact,
+            req.body.capacity,
+            req.body.activities
         );
         switch (sr.errorCode) {
             case ServiceErrorCode.success:
@@ -33,7 +35,27 @@ export class SalleController {
     }
 
     async editSalle(req:Request,res:Response){
+        const sr = await this.salleService.editSalle(req.params.id,req.body);
+        switch(sr.errorCode){
+            case ServiceErrorCode.success:
+                res.status(200).end();
+                break;
+            default:
+                res.status(500).end();
+                break;
+        }
+    }
 
+    async deleteSalle(req:Request,res:Response){
+        const sr = await this.salleService.deleteSalle(req.params.id);
+        switch(sr.errorCode){
+            case ServiceErrorCode.success:
+                res.status(200).end();
+                break;
+            default:
+                res.status(500).end();
+                break;
+        }
     }
     async getAllSalles(req: Request, res: Response ){
         const sr = await this.salleService.getAll();
@@ -50,6 +72,7 @@ export class SalleController {
         this.router.get('/',this.getAllSalles.bind(this));
         this.router.post('/',express.json(),SessionMiddleware.isLogged(this.authService),UserMiddleware.isOwner(),this.createSalle.bind(this));
         this.router.put('/edit/:id',express.json(),SessionMiddleware.isLogged(this.authService),UserMiddleware.isOwner(),this.editSalle.bind(this));
+        this.router.delete('/delete/:id',SessionMiddleware.isLogged(this.authService),UserMiddleware.isOwner(),this.deleteSalle.bind(this));
         return this.router;
 
     }

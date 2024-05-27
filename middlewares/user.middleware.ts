@@ -56,13 +56,10 @@ export class UserMiddleware {
                 return;
             }
             const level = user.acceses;
-            console.log(level);
             if (level < LevelPermission.owner) {
-                console.log("Not authorized");
                 res.status(403).end();
                 return;
             }
-            console.log("Ok");
             next();
         }
     }

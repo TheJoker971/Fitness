@@ -79,7 +79,6 @@ export class AuthService{
                     $gt: new Date()
                 }
             }).exec();
-            console.log(session);
             if(session !== null) {
                 const user = await  this.userModel.findById(session.user).exec();
                 if(user !== null && user.active){
