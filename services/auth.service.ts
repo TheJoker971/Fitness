@@ -71,7 +71,7 @@ export class AuthService{
         try {
             const session = await this.sessionModel.findOne({
                 token: token,
-                expirationDate: {
+                expiration: {
                     $gt: new Date()
                 }
             }).populate('user').exec();
