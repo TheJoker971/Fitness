@@ -35,7 +35,7 @@ export class AuthService{
                 password:SecurityUtils.toSHA256(password)
             }).exec();
             if(user !== null ){
-                if(user.active){
+                if(!user.active){
                     return ServiceResult.failed();
                 }
                 let expiration = new Date().getTime() + 1800000;
@@ -75,15 +75,18 @@ export class AuthService{
         try {
             const session = await this.sessionModel.findOne({
                 token: token,
-                expirationDate: {
+                expiration: {
                     $gt: new Date()
                 }
             }).populate('user').exec();
-            if(session !== null) {
+            console.log(session);
+            if(session !== null && session.user?.active) {
                 return ServiceResult.success(session);
             }
+            console.log("not found");
             return ServiceResult.notFound();
         } catch(err) {
+            console.log("failed");
             return ServiceResult.failed();
         }
     }

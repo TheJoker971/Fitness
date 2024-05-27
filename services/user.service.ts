@@ -9,7 +9,18 @@ export class UserService{
         this.userModel = registry.userModel;
     }
 
+    async editUser(id:string,active:boolean){
+        try{
+            const update = await this.userModel.updateOne({
+                _id:id
+            },{$set:{active:active}});
+            return ServiceResult.success(update);
+        }catch(err){
+            return ServiceResult.failed();
+        }
 
+
+    }
     async getAll():Promise<ServiceResult<IUser[]>>{
         try{
             const users = await this.userModel.find().exec();

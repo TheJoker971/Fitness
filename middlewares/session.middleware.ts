@@ -7,17 +7,23 @@ export class SessionMiddleware {
     static isLogged(authService: AuthService): RequestHandler {
         return async function(req: Request, res: Response, next: NextFunction) {
             const authorization = req.headers['authorization'];
-            if(authorization === undefined) {
+            if (authorization === undefined) {
+                console.log("Authorization not set in req.headers");
                 res.status(401).end(); // UNAUTHORIZED
                 return;
             }
+
             const authParts = authorization.split(' ');
-            if(authParts.length !== 2 || authParts[0] !== 'Bearer') {
+            console.log(authParts);
+            if (authParts.length !== 2 || authParts[0] !== 'Bearer') {
+                console.log("not 'Bearer' or not length=2 ");
                 res.status(401).end(); // UNAUTHORIZED
                 return;
             }
+
             const token = authParts[1];
-            const sr= await authService.getSession(token);
+            const sr = await authService.getSession(token);
+
             switch (sr.errorCode) {
                 case ServiceErrorCode.success:
                     req.user = sr.result?.user;
