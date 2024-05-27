@@ -12,11 +12,10 @@ export class AppUtils{
         const db : Mongoose = await MongooseUtils.open();
         const registry = new ModelRegistry(db);
         const app = express();
-        const router = express.Router();
         const salleService = new SalleService(registry);
         const authService = new AuthService(registry);
-        const salleController = new SalleController(router,salleService,authService);
-        const authController = new AuthController(router,authService);
+        const salleController = new SalleController(salleService,authService);
+        const authController = new AuthController(authService);
 
         app.use('/salle',salleController.buildRoutes());
         app.use('/auth',authController.buildRoutes());

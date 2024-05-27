@@ -10,9 +10,9 @@ export class SalleController {
     private salleService : SalleService;
     private router: Router;
 
-    constructor(router: Router,salleService:SalleService,private authService : AuthService) {
+    constructor(salleService:SalleService,private authService : AuthService) {
         this.salleService = salleService;
-        this.router = router;
+        this.router = express.Router();
     }
 
     async createSalle(req: Request, res: Response){
