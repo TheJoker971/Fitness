@@ -5,9 +5,9 @@ export class AuthController{
     private authService : AuthService;
     private router: Router;
 
-    constructor(router: Router,authService: AuthService){
+    constructor(authService: AuthService){
         this.authService = authService;
-        this.router = router;
+        this.router = express.Router();
     }
 
 

@@ -10,13 +10,12 @@ export class UserService{
     }
 
 
-    async getAll(){
+    async getAll():Promise<ServiceResult<IUser[]>>{
         try{
             const users = await this.userModel.find().exec();
             return ServiceResult.success(users);
         }catch(err){
             return ServiceResult.failed();
         }
-
     }
 }

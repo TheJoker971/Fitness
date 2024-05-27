@@ -1,4 +1,4 @@
-import {Router,Request,Response} from 'express';
+import express, {Router,Request,Response} from 'express';
 import {UserMiddleware} from "../middlewares";
 import {AuthService, ServiceErrorCode, UserService} from "../services";
 import {SessionMiddleware} from "../middlewares/session.middleware";
@@ -6,17 +6,9 @@ import {SessionMiddleware} from "../middlewares/session.middleware";
 
 export class UserController{
 
-
-    constructor(private router:Router,private authService: AuthService,private userService:UserService){
-
-    }
-
-    editUser(req:Request,res:Response){
-
-    }
-
-    deleteUser(req:Request,res:Response){
-
+    private router :Router;
+    constructor(private authService: AuthService,private userService:UserService){
+        this.router = express.Router();
     }
 
     async getUsers(req:Request,res:Response){
@@ -31,8 +23,9 @@ export class UserController{
     }
 
     buildRoutes(){
-        this.router.put('/edit/:id',SessionMiddleware.isLogged(this.authService),UserMiddleware.isAdmin(),this.editUser.bind(this));
-        this.router.delete('/delete/:id',SessionMiddleware.isLogged(this.authService),UserMiddleware.isAdmin(),this.deleteUser.bind(this));
-        this.router.get('/',SessionMiddleware.isLogged(this.authService),UserMiddleware.isAdmin(),this.getUsers.bind(this));
+        //this.router.put('/edit/:id',SessionMiddleware.isLogged(this.authService),UserMiddleware.isAdmin(),this.editUser.bind(this));
+        //this.router.delete('/delete/:id',SessionMiddleware.isLogged(this.authService),UserMiddleware.isAdmin(),this.deleteUser.bind(this));
+        this.router.get('/',this.getUsers.bind(this));
+        return this.router;
     }
 }

@@ -19,6 +19,7 @@ export class AuthService{
                 login: login,
                 password: SecurityUtils.toSHA256(password),
                 acceses: 0,
+                active:true,
                 salles:[]
             });
             return ServiceResult.success(user);

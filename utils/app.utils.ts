@@ -2,8 +2,9 @@ import express from 'express';
 import {Mongoose} from 'mongoose';
 import {MongooseUtils} from "./mogoose.utils";
 import {ModelRegistry} from "../models";
-import {AuthService, SalleService} from "../services";
+import {AuthService, SalleService, UserService} from "../services";
 import {AuthController, SalleController} from "../controllers";
+import {UserController} from "../controllers/user.controller";
 
 
 export class AppUtils{
@@ -12,14 +13,16 @@ export class AppUtils{
         const db : Mongoose = await MongooseUtils.open();
         const registry = new ModelRegistry(db);
         const app = express();
-        const router = express.Router();
         const salleService = new SalleService(registry);
         const authService = new AuthService(registry);
-        const salleController = new SalleController(router,salleService,authService);
-        const authController = new AuthController(router,authService);
+        const userService = new UserService(registry);
+        const salleController = new SalleController(salleService,authService);
+        const authController = new AuthController(authService);
+        const userController = new UserController(authService,userService);
 
         app.use('/salle',salleController.buildRoutes());
         app.use('/auth',authController.buildRoutes());
+        app.use('/user',userController.buildRoutes());
         app.listen(process.env.PORT,function(){
             console.log(`Listening on port ${process.env.PORT}`);
         });
