@@ -9,6 +9,15 @@ export class UserService{
         this.userModel = registry.userModel;
     }
 
+
+    async deleteUser(id:string){
+        try{
+            await this.userModel.findByIdAndDelete(id).exec();
+            return ServiceResult.success(undefined);
+        }catch(err){
+            return ServiceResult.failed();
+        }
+    }
     async editUser(id:string,active:boolean){
         try{
             const update = await this.userModel.updateOne({

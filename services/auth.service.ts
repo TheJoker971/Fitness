@@ -52,7 +52,7 @@ export class AuthService{
                                 expiration:expiration
                             }
                         });
-                        return ServiceResult.success(update);
+                        return ServiceResult.success(session);
                     }else{
                         return ServiceResult.success(user);
                     }
@@ -78,15 +78,17 @@ export class AuthService{
                 expiration: {
                     $gt: new Date()
                 }
-            }).populate('user').exec();
+            }).exec();
             console.log(session);
-            if(session !== null && session.user?.active) {
-                return ServiceResult.success(session);
+            if(session !== null) {
+                const user = await  this.userModel.findById(session.user).exec();
+                if(user !== null && user.active){
+                    return ServiceResult.success(session);
+                }
+                return ServiceResult.failed();
             }
-            console.log("not found");
             return ServiceResult.notFound();
         } catch(err) {
-            console.log("failed");
             return ServiceResult.failed();
         }
     }

@@ -8,15 +8,12 @@ export class SessionMiddleware {
         return async function(req: Request, res: Response, next: NextFunction) {
             const authorization = req.headers['authorization'];
             if (authorization === undefined) {
-                console.log("Authorization not set in req.headers");
                 res.status(401).end(); // UNAUTHORIZED
                 return;
             }
 
             const authParts = authorization.split(' ');
-            console.log(authParts);
             if (authParts.length !== 2 || authParts[0] !== 'Bearer') {
-                console.log("not 'Bearer' or not length=2 ");
                 res.status(401).end(); // UNAUTHORIZED
                 return;
             }

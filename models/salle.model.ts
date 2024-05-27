@@ -1,9 +1,11 @@
 import {Schema} from 'mongoose'
 export interface ISalle {
     name: string;
-    country: string;
-    city: string;
-    way: string;
+    address:string;
+    description:string;
+    contact:string[];
+    capacity:number;
+    activities:string[];
 }
 
 export const salleSchema = new Schema<ISalle>({
@@ -11,18 +13,27 @@ export const salleSchema = new Schema<ISalle>({
         type: Schema.Types.String,
         required: true
     },
-    country: {
+    address: {
         type:Schema.Types.String,
         required:true
     },
-    city: {
+    description: {
         type:Schema.Types.String,
         required: true
     },
-    way:{
-        type:Schema.Types.String,
+    contact:{
+        type:[Schema.Types.String],
+        required:true
+    },
+    capacity:{
+        type:Schema.Types.Number,
+        requied:true
+    },
+    activities:{
+        type:[Schema.Types.String],
         required:true
     }
+
 },{
     versionKey: false
 });

@@ -11,7 +11,6 @@ export class SalleService {
     }
 
     async create(name:string, country:string, city:string, way:string): Promise<ServiceResult<ISalle>> {
-        console.log("Creating...");
         try {
             const salle = await this.salleModel.create({
                 name: name,
@@ -21,7 +20,6 @@ export class SalleService {
             });
             return ServiceResult.success(salle);
         } catch(err) {
-            console.log("Not created");
             return ServiceResult.failed();
         }
     }
