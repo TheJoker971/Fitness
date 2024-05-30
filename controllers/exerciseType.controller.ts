@@ -25,6 +25,18 @@ export class ExerciseTypeController {
         }
     }
 
+    async getAllExerciseTypes(req: Request, res: Response) {
+        const sr = await this.exerciseTypeService.getAll();
+        switch (sr.errorCode) {
+            case ServiceErrorCode.success:
+                res.json(sr.result);
+                break;
+            default:
+                res.status(500).end();
+                break;
+        }
+    }
+
     async updateExerciseType(req: Request, res: Response) {
         const { id } = req.params;
         const { name, description, targetedMuscles } = req.body;
@@ -42,9 +54,27 @@ export class ExerciseTypeController {
         }
     }
 
+    async deleteExerciseType(req: Request, res: Response) {
+        const { id } = req.params;
+        const sr = await this.exerciseTypeService.delete(id);
+        switch (sr.errorCode) {
+            case ServiceErrorCode.success:
+                res.status(204).end();
+                break;
+            case ServiceErrorCode.notFound:
+                res.status(404).end();
+                break;
+            default:
+                res.status(500).end();
+                break;
+        }
+    }
+
     buildRoutes(): Router {
         this.router.post('/', express.json(), this.createExerciseType.bind(this));
+        this.router.get('/', this.getAllExerciseTypes.bind(this));
         this.router.put('/:id', this.updateExerciseType.bind(this));
+        this.router.delete('/:id', this.deleteExerciseType.bind(this));
         return this.router;
     }
 }

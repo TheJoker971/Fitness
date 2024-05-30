@@ -20,10 +20,6 @@ export class AppUtils{
         const exerciseTypeController = new ExerciseTypeController(exerciseTypeService);
 
         app.use(express.json()); 
-        app.use('/exerciseType', (req, res, next) => {
-            console.log(`Received ${req.method} request for ${req.url}`);
-            next();
-        });
 
         app.use('/exerciseType',exerciseTypeController.buildRoutes());
         app.use('/salle',salleController.buildRoutes());
