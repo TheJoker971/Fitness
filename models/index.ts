@@ -5,3 +5,4 @@ export * from './session.model';
 export * from './exerciseType.model';
 export * from './badge.model';
 export * from './userBadge.model'
+export * from './challenge.model'

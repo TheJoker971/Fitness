@@ -4,3 +4,4 @@ export * from './auth.service';
 export * from './exerciseType.service';
 export * from './badge.service'
 export * from './userBadge.service'
+export * from './challenge.service'
