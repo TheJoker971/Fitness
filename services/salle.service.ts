@@ -1,6 +1,7 @@
 import {Model} from "mongoose";
-import {ISalle, ModelRegistry} from "../models";
+import {ISalle, IUser, ModelRegistry} from "../models";
 import {ServiceResult} from "./service.result";
+import {Request} from 'express';
 
 export class SalleService {
 
@@ -30,7 +31,7 @@ export class SalleService {
 
     }
 
-    async create(name:string, address:string, description:string, contact:string[],capacity:number,activities:string[]): Promise<ServiceResult<ISalle>> {
+    async create(name:string, address:string, description:string, contact:string[],capacity:number,activities:string[],owner:IUser): Promise<ServiceResult<ISalle>> {
         try {
             const salle = await this.salleModel.create({
                 name: name,
@@ -38,7 +39,8 @@ export class SalleService {
                 description:description,
                 contact:contact,
                 capacity:capacity,
-                activities:activities
+                activities:activities,
+                owner: owner
             });
             return ServiceResult.success(salle);
         } catch(err) {

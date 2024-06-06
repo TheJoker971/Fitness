@@ -3,6 +3,7 @@ import {AuthService, SalleService, UserService} from "../services";
 import {ServiceErrorCode} from "../services";
 import {UserMiddleware} from "../middlewares";
 import {SessionMiddleware} from "../middlewares/session.middleware";
+import {IUser} from "../models";
 
 
 export class SalleController {
@@ -22,7 +23,8 @@ export class SalleController {
             req.body.description,
             req.body.contact,
             req.body.capacity,
-            req.body.activities
+            req.body.activities,
+            req.user as IUser
         );
         switch (sr.errorCode) {
             case ServiceErrorCode.success:
