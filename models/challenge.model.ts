@@ -8,7 +8,7 @@ export interface IChallenge extends Document {
     type: string;
     salleId: Types.ObjectId; 
     creatorId: Types.ObjectId; 
-    points: number; // Points attribués pour compléter le défi
+    //points: number; // Points attribués pour compléter le défi
 }
 
 export const challengeSchema: Schema<IChallenge> = new Schema({
@@ -41,10 +41,10 @@ export const challengeSchema: Schema<IChallenge> = new Schema({
         ref: 'User', 
     required: true 
 },
-    points: { 
+    /*points: { 
         type: Number, 
         required: true 
-    }
+    }*/
 }, {
     versionKey: false
 });

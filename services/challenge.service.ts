@@ -9,9 +9,9 @@ export class ChallengeService {
         this.challengeModel = modelRegistry.challengeModel;
     }
 
-    async create(name: string, description: string, equipment: string[], difficulty: string, type: string, salleId: string, creatorId: string, points: number): Promise<ServiceResult<IChallenge>> {
+    async create(name: string, description: string, equipment: string[], difficulty: string, type: string, salleId: string, creatorId: string): Promise<ServiceResult<IChallenge>> {
         try {
-            const challenge = await this.challengeModel.create({ name, description, equipment, difficulty, type, salleId, creatorId, points });
+            const challenge = await this.challengeModel.create({ name, description, equipment, difficulty, type, salleId, creatorId });
             return ServiceResult.success(challenge);
         } catch (err) {
             return ServiceResult.failed();

@@ -12,8 +12,8 @@ export class ChallengeController {
     }
 
     async createChallenge(req: Request, res: Response) {
-        const { name, description, equipment, difficulty, type, salleId, creatorId, points } = req.body;
-        const sr = await this.challengeService.create(name, description, equipment, difficulty, type, salleId, creatorId, points);
+        const { name, description, equipment, difficulty, type, salleId, creatorId} = req.body;
+        const sr = await this.challengeService.create(name, description, equipment, difficulty, type, salleId, creatorId);
         switch (sr.errorCode) {
             case ServiceErrorCode.success:
                 res.status(201).json(sr.result);
