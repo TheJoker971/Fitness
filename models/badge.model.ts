@@ -7,7 +7,7 @@ export interface IBadge extends Document {
     imageUrl: string;
 }
 
-export const BadgeSchema: Schema<IBadge> = new Schema({
+export const badgeSchema: Schema<IBadge> = new Schema({
     name: { 
         type: String, 
         required: true 
@@ -27,7 +27,3 @@ export const BadgeSchema: Schema<IBadge> = new Schema({
 }, {
     versionKey: false
 });
-
-const Badge: Model<IBadge> = model<IBadge>('Badge', BadgeSchema);
-
-export default Badge;
