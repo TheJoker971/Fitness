@@ -6,7 +6,7 @@ export interface IExerciseType {
     targetedMuscles: string[]
 }
 
-export const ExerciseTypeSchema = new Schema<IExerciseType>({
+export const exerciseTypeSchema = new Schema<IExerciseType>({
     name:{
         type: Schema.Types.String,
         required: true

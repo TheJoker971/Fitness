@@ -2,7 +2,7 @@ import {Model,Mongoose} from 'mongoose';
 import {ISalle,salleSchema} from "./salle.model";
 import {IUser, userSchema} from "./user.model";
 import {ISession, sessionSchema} from "./session.model";
-import {IExerciseType,ExerciseTypeSchema} from "./exerciseType.model";
+import {IExerciseType, exerciseTypeSchema} from "./exerciseType.model";
 import {IBadge, badgeSchema} from "./badge.model";
 import {IUserBadge, userBadgeSchema} from "./userBadge.model";
 import {IChallenge, challengeSchema} from "./challenge.model";
@@ -24,7 +24,7 @@ export class ModelRegistry{
         this.userModel = mongoose.model('Users',userSchema);
         this.salleModel = mongoose.model('Salles',salleSchema);
         this.sessionModel = mongoose.model('Sessions',sessionSchema)
-        this.exerciseTypeModel = mongoose.model('ExerciseTypes',ExerciseTypeSchema)
+        this.exerciseTypeModel = mongoose.model('ExerciseTypes',exerciseTypeSchema)
         this.badgeModel = mongoose.model('Badges',badgeSchema)
         this.userBadgeModel = mongoose.model('UserBadges', userBadgeSchema)
         this.challengeModel = mongoose.model('Challenges', challengeSchema)
