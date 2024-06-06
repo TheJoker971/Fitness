@@ -11,7 +11,7 @@ export interface IChallenge extends Document {
     points: number; // Points attribués pour compléter le défi
 }
 
-export const ChallengeSchema: Schema<IChallenge> = new Schema({
+export const challengeSchema: Schema<IChallenge> = new Schema({
     name: { 
         type: String, 
         required: true 
@@ -48,7 +48,3 @@ export const ChallengeSchema: Schema<IChallenge> = new Schema({
 }, {
     versionKey: false
 });
-
-const Challenge: Model<IChallenge> = model<IChallenge>('Challenge', ChallengeSchema);
-
-export default Challenge;

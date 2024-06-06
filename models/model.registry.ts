@@ -5,7 +5,7 @@ import {ISession, sessionSchema} from "./session.model";
 import {IExerciseType,ExerciseTypeSchema} from "./exerciseType.model";
 import {IBadge, badgeSchema} from "./badge.model";
 import {IUserBadge, userBadgeSchema} from "./userBadge.model";
-import {IChallenge, ChallengeSchema} from "./challenge.model";
+import {IChallenge, challengeSchema} from "./challenge.model";
 import {IUserChallenge, userChallengeSchema} from "./userChallenge.model";
 
 export class ModelRegistry{
@@ -27,8 +27,7 @@ export class ModelRegistry{
         this.exerciseTypeModel = mongoose.model('ExerciseTypes',ExerciseTypeSchema)
         this.badgeModel = mongoose.model('Badges',badgeSchema)
         this.userBadgeModel = mongoose.model('UserBadges', userBadgeSchema)
-        this.challengeModel = mongoose.model('Challenges', ChallengeSchema)
+        this.challengeModel = mongoose.model('Challenges', challengeSchema)
         this.userChallengeModel = mongoose.model('UserChallenges', userChallengeSchema)
     }
-
 }
