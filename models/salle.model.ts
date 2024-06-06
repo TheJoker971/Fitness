@@ -1,4 +1,5 @@
 import {Schema} from 'mongoose'
+import {IUser} from "./user.model";
 export interface ISalle {
     name: string;
     address:string;
@@ -6,6 +7,7 @@ export interface ISalle {
     contact:string[];
     capacity:number;
     activities:string[];
+    owner:IUser;
 }
 
 export const salleSchema = new Schema<ISalle>({
@@ -32,6 +34,10 @@ export const salleSchema = new Schema<ISalle>({
     activities:{
         type:[Schema.Types.String],
         required:true
+    },
+    owner:{
+        type:Schema.Types.ObjectId,
+        required : true
     }
 
 },{
