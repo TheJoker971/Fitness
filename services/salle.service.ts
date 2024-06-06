@@ -1,7 +1,6 @@
 import {Model} from "mongoose";
 import {ISalle, IUser, ModelRegistry} from "../models";
 import {ServiceResult} from "./service.result";
-import {Request} from 'express';
 
 export class SalleService {
 
