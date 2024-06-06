@@ -4,3 +4,4 @@ export * from './exerciseType.controller';
 export * from './badge.controller'
 export * from './userBadge.controller'
 export * from './challenge.controller'
+export * from './userChallenge.controller'
