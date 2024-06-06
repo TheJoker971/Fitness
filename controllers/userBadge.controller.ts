@@ -37,9 +37,39 @@ export class UserBadgeController {
         }
     }
 
+    async getAllUserBadges(req: Request, res: Response) {
+        const sr = await this.userBadgeService.getAll();
+        switch (sr.errorCode) {
+            case ServiceErrorCode.success:
+                res.json(sr.result);
+                break;
+            default:
+                res.status(500).end();
+                break;
+        }
+    }
+
+    async deleteUserBadge(req: Request, res: Response) {
+        const { userBadgeId } = req.params;
+        const sr = await this.userBadgeService.deleteUserBadge(userBadgeId);
+        switch (sr.errorCode) {
+            case ServiceErrorCode.success:
+                res.status(204).end();
+                break;
+            case ServiceErrorCode.notFound:
+                res.status(404).end();
+                break;
+            default:
+                res.status(500).end();
+                break;
+        }
+    }
+
     buildRoutes(): Router {
         this.router.post('/', this.awardBadge.bind(this));
         this.router.get('/:userId', this.getUserBadges.bind(this));
+        this.router.get('/', this.getAllUserBadges.bind(this));
+        this.router.delete('/:userBadgeId', this.deleteUserBadge.bind(this));
         return this.router;
     }
 }

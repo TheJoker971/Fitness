@@ -26,4 +26,25 @@ export class UserBadgeService {
             return ServiceResult.failed();
         }
     }
+
+    async getAll(): Promise<ServiceResult<IUserBadge[]>> {
+        try {
+            const userBadges = await this.userBadgeModel.find().populate('badgeId').exec();
+            return ServiceResult.success(userBadges);
+        } catch (err) {
+            return ServiceResult.failed();
+        }
+    }
+
+    async deleteUserBadge(userBadgeId: string): Promise<ServiceResult<IUserBadge>> {
+        try {
+            const userBadge = await this.userBadgeModel.findByIdAndDelete(userBadgeId).exec();
+            if (userBadge) {
+                return ServiceResult.success(userBadge);
+            }
+            return ServiceResult.notFound();
+        } catch (err) {
+            return ServiceResult.failed();
+        }
+    }
 }
