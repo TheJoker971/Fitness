@@ -6,7 +6,7 @@ export interface IUserBadge extends Document {
     dateAwarded: Date; 
 }
 
-export const UserBadgeSchema: Schema<IUserBadge> = new Schema({
+export const userBadgeSchema: Schema<IUserBadge> = new Schema({
     userId: { 
         type: Schema.Types.ObjectId, 
         ref: 'User', 
@@ -25,7 +25,3 @@ export const UserBadgeSchema: Schema<IUserBadge> = new Schema({
 }, {
     versionKey: false
 });
-
-const UserBadge: Model<IUserBadge> = model<IUserBadge>('UserBadge', UserBadgeSchema);
-
-export default UserBadge;
