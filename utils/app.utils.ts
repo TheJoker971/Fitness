@@ -2,8 +2,8 @@ import express from 'express';
 import {Mongoose} from 'mongoose';
 import {MongooseUtils} from "./mogoose.utils";
 import {ModelRegistry} from "../models";
-import {AuthService, SalleService, ExerciseTypeService, BadgeService, UserBadgeService, ChallengeService, UserChallengeService} from "../services";
-import {AuthController, SalleController, ExerciseTypeController, BadgeController, UserBadgeController, ChallengeController, UserChallengeController} from "../controllers";
+import {AuthService, SalleService, ExerciseTypeService, BadgeService, UserBadgeService, ChallengeService, UserChallengeService, CommunityChallengeService} from "../services";
+import {AuthController, SalleController, ExerciseTypeController, BadgeController, UserBadgeController, ChallengeController, UserChallengeController, CommunityChallengeController} from "../controllers";
 
 
 export class AppUtils{
@@ -19,6 +19,7 @@ export class AppUtils{
         const authService = new AuthService(registry);
         const challengeService = new ChallengeService(registry);
         const userChallengeService = new UserChallengeService(registry);
+        const communityChallengeService = new CommunityChallengeService(registry);
 
         const salleController = new SalleController(salleService,authService);
         const authController = new AuthController(authService);
@@ -27,6 +28,7 @@ export class AppUtils{
         const userBadgeController = new UserBadgeController(userBadgeService);
         const challengeController = new ChallengeController(challengeService);
         const userChallengeController = new UserChallengeController(userChallengeService);
+        const communityChallengeController = new CommunityChallengeController(communityChallengeService);
 
         app.use(express.json()); 
 
@@ -36,7 +38,8 @@ export class AppUtils{
         app.use('/salle',salleController.buildRoutes());
         app.use('/auth',authController.buildRoutes());
         app.use('/challenge',challengeController.buildRoutes());
-        app.use('/userChallenges', userChallengeController.buildRoutes());
+        app.use('/userChallenge', userChallengeController.buildRoutes());
+        app.use('/communityChallenge', communityChallengeController.buildRoutes());
         app.listen(process.env.PORT,function(){
             console.log(`Listening on port ${process.env.PORT}`);
         });
