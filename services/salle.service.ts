@@ -1,5 +1,5 @@
 import {Model} from "mongoose";
-import {ISalle, ModelRegistry} from "../models";
+import {ISalle, IUser, ModelRegistry} from "../models";
 import {ServiceResult} from "./service.result";
 
 export class SalleService {
@@ -10,18 +10,39 @@ export class SalleService {
         this.salleModel = modelRegistry.salleModel;
     }
 
-    async create(name:string, country:string, city:string, way:string): Promise<ServiceResult<ISalle>> {
-        console.log("Creating...");
+    async deleteSalle(id:string){
+        try{
+            this.salleModel.findByIdAndDelete(id).exec();
+            return ServiceResult.success(undefined);
+        }catch(err){
+            return ServiceResult.failed();
+        }
+
+    }
+
+    async editSalle(id:string,info:any){
+        try{
+            this.salleModel.findByIdAndUpdate(id,{$set:info}).exec();
+            return ServiceResult.success(undefined);
+        }catch(err){
+            return ServiceResult.failed();
+        }
+
+    }
+
+    async create(name:string, address:string, description:string, contact:string[],capacity:number,activities:string[],owner:IUser): Promise<ServiceResult<ISalle>> {
         try {
             const salle = await this.salleModel.create({
                 name: name,
-                country: country,
-                city: city,
-                way: way
+                address:address,
+                description:description,
+                contact:contact,
+                capacity:capacity,
+                activities:activities,
+                owner: owner
             });
             return ServiceResult.success(salle);
         } catch(err) {
-            console.log("Not created");
             return ServiceResult.failed();
         }
     }

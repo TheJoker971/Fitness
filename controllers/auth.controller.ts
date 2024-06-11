@@ -33,7 +33,7 @@ export class AuthController{
         );
         switch (sr.errorCode){
             case ServiceErrorCode.success:
-                res.status(201).json(sr.result);
+                res.status(200).json(sr.result);
                 break;
             case ServiceErrorCode.notFound:
                 res.status(404).end();

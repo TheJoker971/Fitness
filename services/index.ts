@@ -6,3 +6,5 @@ export * from './badge.service'
 export * from './userBadge.service'
 export * from './challenge.service'
 export * from './userChallenge.service'
+export * from './user.service';
+

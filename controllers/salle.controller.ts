@@ -1,8 +1,9 @@
 import express, {Router,Response,Request} from 'express';
-import {AuthService, SalleService} from "../services";
+import {AuthService, SalleService, UserService} from "../services";
 import {ServiceErrorCode} from "../services";
 import {UserMiddleware} from "../middlewares";
 import {SessionMiddleware} from "../middlewares/session.middleware";
+import {IUser} from "../models";
 
 
 export class SalleController {
@@ -16,17 +17,42 @@ export class SalleController {
     }
 
     async createSalle(req: Request, res: Response){
-        //console.log(req);
-        console.log(req.body);
         const sr = await this.salleService.create(
             req.body.name,
-            req.body.country,
-            req.body.city,
-            req.body.way
+            req.body.address,
+            req.body.description,
+            req.body.contact,
+            req.body.capacity,
+            req.body.activities,
+            req.user as IUser
         );
         switch (sr.errorCode) {
             case ServiceErrorCode.success:
                 res.status(201).json(sr.result);
+                break;
+            default:
+                res.status(500).end();
+                break;
+        }
+    }
+
+    async editSalle(req:Request,res:Response){
+        const sr = await this.salleService.editSalle(req.params.id,req.body);
+        switch(sr.errorCode){
+            case ServiceErrorCode.success:
+                res.status(200).end();
+                break;
+            default:
+                res.status(500).end();
+                break;
+        }
+    }
+
+    async deleteSalle(req:Request,res:Response){
+        const sr = await this.salleService.deleteSalle(req.params.id);
+        switch(sr.errorCode){
+            case ServiceErrorCode.success:
+                res.status(200).end();
                 break;
             default:
                 res.status(500).end();
@@ -46,7 +72,9 @@ export class SalleController {
     }
     buildRoutes():Router{
         this.router.get('/',this.getAllSalles.bind(this));
-        this.router.post('/',express.json(),this.createSalle.bind(this));
+        this.router.post('/',express.json(),SessionMiddleware.isLogged(this.authService),UserMiddleware.isOwner(),this.createSalle.bind(this));
+        this.router.put('/edit/:id',express.json(),SessionMiddleware.isLogged(this.authService),UserMiddleware.isOwner(),this.editSalle.bind(this));
+        this.router.delete('/delete/:id',SessionMiddleware.isLogged(this.authService),UserMiddleware.isOwner(),this.deleteSalle.bind(this));
         return this.router;
 
     }

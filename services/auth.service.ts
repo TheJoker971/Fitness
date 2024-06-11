@@ -19,6 +19,7 @@ export class AuthService{
                 login: login,
                 password: SecurityUtils.toSHA256(password),
                 acceses: 0,
+                active:true,
                 salles:[]
             });
             return ServiceResult.success(user);
@@ -33,7 +34,10 @@ export class AuthService{
                 login:login,
                 password:SecurityUtils.toSHA256(password)
             }).exec();
-            if(user !== null){
+            if(user !== null ){
+                if(!user.active){
+                    return ServiceResult.failed();
+                }
                 let expiration = new Date().getTime() + 1800000;
                 let session = await this.sessionModel.findOne({
                     user:user
@@ -47,8 +51,8 @@ export class AuthService{
                                 token:SecurityUtils.randomToken(),
                                 expiration:expiration
                             }
-                        });
-                        return ServiceResult.success(update);
+                        }).exec();
+                        return ServiceResult.success(session);
                     }else{
                         return ServiceResult.success(user);
                     }
@@ -74,9 +78,13 @@ export class AuthService{
                 expiration: {
                     $gt: new Date()
                 }
-            }).populate('user').exec();
+            }).exec();
             if(session !== null) {
-                return ServiceResult.success(session);
+                const user = await  this.userModel.findById(session.user).exec();
+                if(user !== null && user.active){
+                    return ServiceResult.success(session);
+                }
+                return ServiceResult.failed();
             }
             return ServiceResult.notFound();
         } catch(err) {
