@@ -5,7 +5,6 @@ import {ModelRegistry} from "../models";
 import {AuthService, SalleService, ExerciseTypeService, BadgeService, UserBadgeService, ChallengeService, UserChallengeService, CommunityChallengeService, UserService} from "../services";
 import {AuthController, SalleController, ExerciseTypeController, BadgeController, UserBadgeController, ChallengeController, UserChallengeController, CommunityChallengeController, UserController} from "../controllers";
 
-
 export class AppUtils{
 
     static async launchAPI(){
