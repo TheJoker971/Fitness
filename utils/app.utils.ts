@@ -2,8 +2,19 @@ import express from 'express';
 import {Mongoose} from 'mongoose';
 import {MongooseUtils} from "./mogoose.utils";
 import {ModelRegistry} from "../models";
-import {AuthService, SalleService, ExerciseTypeService, BadgeService, UserBadgeService, ChallengeService, UserChallengeService,UserService} from "../services";
+import {
+    AuthService,
+    SalleService,
+    ExerciseTypeService,
+    BadgeService,
+    UserBadgeService,
+    ChallengeService,
+    UserChallengeService,
+    UserService,
+    ExerciseChallengeService
+} from "../services";
 import {AuthController, SalleController, ExerciseTypeController, BadgeController, UserBadgeController, ChallengeController, UserChallengeController,UserController} from "../controllers";
+import {ExerciseChallengeController} from "../controllers/exerciseChallenge.controller";
 
 
 
@@ -21,6 +32,7 @@ export class AppUtils{
         const challengeService = new ChallengeService(registry);
         const userChallengeService = new UserChallengeService(registry);
         const userService = new UserService(registry);
+        const exerciseChallengeService  = new ExerciseChallengeService(registry);
       
         const userController = new UserController(authService,userService);
         const salleController = new SalleController(salleService,authService);
@@ -30,6 +42,7 @@ export class AppUtils{
         const userBadgeController = new UserBadgeController(userBadgeService);
         const challengeController = new ChallengeController(challengeService);
         const userChallengeController = new UserChallengeController(userChallengeService);
+        const exerciseChallengeController = new ExerciseChallengeController(registry,exerciseChallengeService);
 
         app.use(express.json()); 
 
