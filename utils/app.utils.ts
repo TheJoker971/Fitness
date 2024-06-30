@@ -2,6 +2,7 @@ import express from 'express';
 import {Mongoose} from 'mongoose';
 import {MongooseUtils} from "./mogoose.utils";
 import {ModelRegistry} from "../models";
+import cors from "cors";
 import {AuthService, SalleService, ExerciseTypeService, BadgeService, UserBadgeService, ChallengeService, UserChallengeService, CommunityChallengeService, UserService} from "../services";
 import {AuthController, SalleController, ExerciseTypeController, BadgeController, UserBadgeController, ChallengeController, UserChallengeController, CommunityChallengeController, UserController} from "../controllers";
 
@@ -32,6 +33,7 @@ export class AppUtils{
         const communityChallengeController = new CommunityChallengeController(communityChallengeService);
 
         app.use(express.json()); 
+        app.use(cors());
 
 
         app.use('/userBadge', userBadgeController.buildRoutes());
