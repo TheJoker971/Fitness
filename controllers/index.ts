@@ -5,4 +5,5 @@ export * from './badge.controller';
 export * from './userBadge.controller';
 export * from './challenge.controller';
 export * from './userChallenge.controller';
+export * from './communityChallenge.controller';
 export * from './user.controller';
