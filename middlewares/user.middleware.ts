@@ -15,7 +15,7 @@ export class UserMiddleware {
                 res.status(403).end();
                 return;
             }
-            const level = user.acceses;
+            const level = user.accesses;
             if (level < LevelPermission.worker) {
                 res.status(403).end();
                 return;
@@ -35,7 +35,7 @@ export class UserMiddleware {
                 res.status(403).end();
                 return;
             }
-            const level = user.acceses;
+            const level = user.accesses;
             if (level < LevelPermission.manager) {
                 res.status(403).end();
                 return;
@@ -55,7 +55,7 @@ export class UserMiddleware {
                 res.status(403).end();
                 return;
             }
-            const level = user.acceses;
+            const level = user.accesses;
             if (level < LevelPermission.owner) {
                 res.status(403).end();
                 return;
@@ -74,7 +74,7 @@ export class UserMiddleware {
                 res.status(403).end();
                 return;
             }
-            const level = user.acceses;
+            const level = user.accesses;
             if (level < LevelPermission.admin) {
                 res.status(403).end();
                 return;

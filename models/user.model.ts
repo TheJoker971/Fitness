@@ -4,7 +4,7 @@ import {ISalle} from "./salle.model";
 export interface IUser {
     login:string;
     password:string;
-    acceses:number;
+    accesses:number;
     active:boolean;
 }
 
@@ -19,7 +19,7 @@ export const userSchema = new Schema<IUser> ({
         type: Schema.Types.String,
         required:true
     },
-    acceses:{
+    accesses:{
         type:Schema.Types.Number,
         required:true
     },

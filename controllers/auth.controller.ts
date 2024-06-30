@@ -27,10 +27,12 @@ export class AuthController{
     }
 
     async login(req: Request, res: Response){
+        console.log("Login request received:", req.body);
         const sr = await this.authService.log(
             req.body.login,
             req.body.password
         );
+        console.log("Service result:", sr); // Log du résultat du service
         switch (sr.errorCode){
             case ServiceErrorCode.success:
                 res.status(200).json(sr.result);
@@ -46,6 +48,7 @@ export class AuthController{
 
     buildRoutes() : Router{
         this.router.post('/register',express.json(),this.register.bind(this));
+        this.router.post('/subscribe',express.json(),this.register.bind(this));
         this.router.post('/login',express.json(),this.login.bind(this));
         return this.router;
     }
