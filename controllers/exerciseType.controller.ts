@@ -1,6 +1,6 @@
 import express, { Router, Response, Request } from 'express';
-import { ExerciseTypeService } from '../services/exerciseType.service';
-import { ServiceErrorCode } from '../services/service.result';
+import { ExerciseTypeService, ServiceErrorCode } from '../services';
+
 
 export class ExerciseTypeController {
 
