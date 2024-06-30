@@ -18,7 +18,7 @@ export class AuthService{
             const user = this.userModel.create({
                 login: login,
                 password: SecurityUtils.toSHA256(password),
-                acceses: 0,
+                accesses: 0,
                 active:true,
                 //salles:[]
             });
