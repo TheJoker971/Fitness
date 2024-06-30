@@ -70,8 +70,22 @@ export class SalleController {
                 break;
         }
     }
+
+    async getAllSallesOwner(req: Request, res: Response ){
+        const sr = await this.salleService.getAllOwner(req.user as IUser);
+        switch (sr.errorCode) {
+            case ServiceErrorCode.success:
+                res.json(sr.result);
+                break;
+            default:
+                res.status(500).end();
+                break;
+        }
+    }
+
     buildRoutes():Router{
         this.router.get('/',this.getAllSalles.bind(this));
+        this.router.get('/my',SessionMiddleware.isLogged(this.authService),UserMiddleware.isOwner(),this.getAllSallesOwner.bind(this));
         this.router.post('/',express.json(),SessionMiddleware.isLogged(this.authService),UserMiddleware.isOwner(),this.createSalle.bind(this));
         this.router.put('/edit/:id',express.json(),SessionMiddleware.isLogged(this.authService),UserMiddleware.isOwner(),this.editSalle.bind(this));
         this.router.delete('/delete/:id',SessionMiddleware.isLogged(this.authService),UserMiddleware.isOwner(),this.deleteSalle.bind(this));
