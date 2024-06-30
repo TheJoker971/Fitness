@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { IChallenge, ModelRegistry } from '../models';
+import {IChallenge, ISalle, ModelRegistry} from '../models';
 import { ServiceResult } from './service.result';
 
 export class ChallengeService {
@@ -30,6 +30,20 @@ export class ChallengeService {
     async getById(id: string): Promise<ServiceResult<IChallenge>> {
         try {
             const challenge = await this.challengeModel.findById(id).exec();
+            if (challenge) {
+                return ServiceResult.success(challenge);
+            }
+            return ServiceResult.notFound();
+        } catch (err) {
+            return ServiceResult.failed();
+        }
+    }
+
+    async getBySalle(idSalle: string): Promise<ServiceResult<IChallenge>> {
+        try {
+            const challenge = await this.challengeModel.findById({
+                salleId: idSalle
+            }).exec();
             if (challenge) {
                 return ServiceResult.success(challenge);
             }

@@ -1,6 +1,7 @@
 import express, { Router, Response, Request } from 'express';
 import { ChallengeService } from '../services/challenge.service';
 import { ServiceErrorCode } from '../services/service.result';
+import {ISalle} from "../models";
 
 export class ChallengeController {
     private challengeService: ChallengeService;
@@ -52,6 +53,22 @@ export class ChallengeController {
         }
     }
 
+    async getChallengeBySalle(req: Request, res: Response) {
+        const { idSalle } = req.params;
+        const sr = await this.challengeService.getById(idSalle);
+        switch (sr.errorCode) {
+            case ServiceErrorCode.success:
+                res.json(sr.result);
+                break;
+            case ServiceErrorCode.notFound:
+                res.status(404).end();
+                break;
+            default:
+                res.status(500).end();
+                break;
+        }
+    }
+
     async updateChallenge(req: Request, res: Response) {
         const { id } = req.params;
         const { name, description, equipment, difficulty, type, points } = req.body;
@@ -89,6 +106,7 @@ export class ChallengeController {
         this.router.post('/', this.createChallenge.bind(this));
         this.router.get('/', this.getAllChallenges.bind(this));
         this.router.get('/:id', this.getChallengeById.bind(this));
+        this.router.get('/:idSalle', this.getChallengeBySalle.bind(this));
         this.router.put('/:id', this.updateChallenge.bind(this));
         this.router.delete('/:id', this.deleteChallenge.bind(this));
         return this.router;
