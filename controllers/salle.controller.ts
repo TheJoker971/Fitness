@@ -52,7 +52,7 @@ export class SalleController {
         const sr = await this.salleService.deleteSalle(req.params.id);
         switch(sr.errorCode){
             case ServiceErrorCode.success:
-                res.status(200).end();
+                res.status(204).end();
                 break;
             default:
                 res.status(500).end();

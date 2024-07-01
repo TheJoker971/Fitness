@@ -55,7 +55,7 @@ export class ChallengeController {
 
     async getChallengeBySalle(req: Request, res: Response) {
         const { idSalle } = req.params;
-        const sr = await this.challengeService.getById(idSalle);
+        const sr = await this.challengeService.getBySalle(idSalle);
         switch (sr.errorCode) {
             case ServiceErrorCode.success:
                 res.json(sr.result);
