@@ -38,4 +38,16 @@ export class UserService{
             return ServiceResult.failed();
         }
     }
+
+    async deactivateUser(id: string): Promise<ServiceResult<void>> {
+        try {
+            const result = await this.userModel.updateOne({ _id: id }, { $set: { active: false } }).exec();
+            if (result.modifiedCount > 0) { // Utiliser modifiedCount au lieu de nModified
+                return ServiceResult.success(undefined);
+            }
+            return ServiceResult.failed();
+        } catch (err) {
+            return ServiceResult.failed();
+        }
+    }
 }

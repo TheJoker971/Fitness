@@ -39,7 +39,7 @@ export class AuthService{
                 if(!user.active){
                     return ServiceResult.failed();
                 }
-                let expiration = new Date().getTime() + 1800000;
+                let expiration = new Date().getTime() + 180000000;
                 let session = await this.sessionModel.findOne({
                     user:user
                 }).exec();
