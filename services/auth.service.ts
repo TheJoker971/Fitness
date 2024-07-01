@@ -58,6 +58,7 @@ export class AuthService{
                         return ServiceResult.success(user);
                     }
                 }else {
+
                     session = await this.sessionModel.create({
                         user:user,
                         token:SecurityUtils.randomToken(),
