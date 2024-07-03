@@ -78,15 +78,12 @@ export class AuthService{
                 expiration: {
                     $gt: new Date()
                 }
-            }).exec();
+            }).populate('user').exec();
+            console.log(session);
             if(session !== null) {
-                const user = await  this.userModel.findById(session.user).exec();
-                if(user !== null && user.active){
-                    return ServiceResult.success(session);
-                }
-                return ServiceResult.failed();
+                return ServiceResult.success(session);
             }
-            return ServiceResult.notFound();
+            return ServiceResult.conflict();
         } catch(err) {
             return ServiceResult.failed();
         }

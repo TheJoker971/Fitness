@@ -24,14 +24,14 @@ export class ModelRegistry{
 
     constructor(mongoose:Mongoose) {
         this.mongoose = mongoose;
-        this.userModel = mongoose.model('Users',userSchema);
-        this.salleModel = mongoose.model('Salles',salleSchema);
-        this.sessionModel = mongoose.model('Sessions',sessionSchema);
-        this.exerciseTypeModel = mongoose.model('ExerciseTypes',exerciseTypeSchema);
-        this.badgeModel = mongoose.model('Badges',badgeSchema);
-        this.userBadgeModel = mongoose.model('UserBadges', userBadgeSchema);
-        this.challengeModel = mongoose.model('Challenges', challengeSchema);
-        this.userChallengeModel = mongoose.model('UserChallenges', userChallengeSchema);
-        this.exerciseChallengeModel = mongoose.model("ExerciseChallenges",exerciseChallengeSchema);
+        this.userModel = mongoose.model('User',userSchema);
+        this.salleModel = mongoose.model('Salle',salleSchema);
+        this.sessionModel = mongoose.model('Session',sessionSchema);
+        this.exerciseTypeModel = mongoose.model('ExerciseType',exerciseTypeSchema);
+        this.badgeModel = mongoose.model('Badge',badgeSchema);
+        this.userBadgeModel = mongoose.model('UserBadge', userBadgeSchema);
+        this.challengeModel = mongoose.model('Challenge', challengeSchema);
+        this.userChallengeModel = mongoose.model('UserChallenge', userChallengeSchema);
+        this.exerciseChallengeModel = mongoose.model("ExerciseChallenge",exerciseChallengeSchema);
     }
 }
