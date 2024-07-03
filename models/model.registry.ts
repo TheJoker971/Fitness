@@ -8,6 +8,7 @@ import {IUserBadge, userBadgeSchema} from "./userBadge.model";
 import {IChallenge, challengeSchema} from "./challenge.model";
 import {IUserChallenge, userChallengeSchema} from "./userChallenge.model";
 import {exerciseChallengeSchema, IExerciseChallenge} from "./exerciseChallenge.model";
+import {ICommunityChallenge, communityChallengeSchema} from "./communityChallenge.model";
 
 
 export class ModelRegistry{
@@ -21,6 +22,7 @@ export class ModelRegistry{
     readonly challengeModel : Model<IChallenge>;
     readonly userChallengeModel : Model<IUserChallenge>;
     readonly exerciseChallengeModel : Model<IExerciseChallenge>;
+    readonly communityChallengeModel : Model<ICommunityChallenge>;
 
     constructor(mongoose:Mongoose) {
         this.mongoose = mongoose;
@@ -33,5 +35,7 @@ export class ModelRegistry{
         this.challengeModel = mongoose.model('Challenge', challengeSchema);
         this.userChallengeModel = mongoose.model('UserChallenge', userChallengeSchema);
         this.exerciseChallengeModel = mongoose.model("ExerciseChallenge",exerciseChallengeSchema);
+        this.communityChallengeModel = mongoose.model("CommunityChallenge",communityChallengeSchema);
+
     }
 }

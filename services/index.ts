@@ -8,3 +8,5 @@ export * from './challenge.service';
 export * from './userChallenge.service';
 export * from './user.service';
 export * from './exerciseType.service';
+export * from './communityChallenge.service';
+

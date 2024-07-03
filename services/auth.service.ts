@@ -20,13 +20,14 @@ export class AuthService{
                 password: SecurityUtils.toSHA256(password),
                 acceses: 0,
                 active:true,
-                salles:[]
+                //salles:[]
             });
             return ServiceResult.success(user);
         }catch(err){
             return ServiceResult.failed();
         }
     }
+
 
     async log(login:string, password:string){
         try{

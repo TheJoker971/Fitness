@@ -8,3 +8,5 @@ export * from './userBadge.model';
 export * from './challenge.model';
 export * from './userChallenge.model';
 export * from './exerciseChallenge.model';
+export * from './communityChallenge.model';
+
