@@ -67,6 +67,15 @@ export class SalleService {
         }
     }
 
+    async getAllByOwner(ownerId: string): Promise<ServiceResult<ISalle[]>> {
+        try {
+            const salles = await this.salleModel.find({ owner: ownerId }).exec();
+            return ServiceResult.success(salles);
+        } catch (err) {
+            return ServiceResult.failed();
+        }
+    }
+
     async getById(id: string): Promise<ServiceResult<ISalle>> {
         try {
             const salle = await this.salleModel.findById(id).exec();

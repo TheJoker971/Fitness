@@ -11,6 +11,13 @@ export class ChallengeService {
 
     async create(name: string, description: string, equipment: string[], difficulty: string, type: string, salleId: string, creatorId: string): Promise<ServiceResult<IChallenge>> {
         try {
+            console.log(name)
+            console.log(description)
+            console.log(equipment)
+            console.log(difficulty)
+            console.log(type)
+            console.log(salleId)
+            console.log(creatorId)
             const challenge = await this.challengeModel.create({ name, description, equipment, difficulty, type, salleId, creatorId });
             return ServiceResult.success(challenge);
         } catch (err) {
@@ -39,13 +46,13 @@ export class ChallengeService {
         }
     }
 
-    async getBySalle(idSalle: string): Promise<ServiceResult<IChallenge>> {
+    async getBySalle(idSalle: string): Promise<ServiceResult<IChallenge[]>> {
         try {
-            const challenge = await this.challengeModel.findById({
+            const challenges = await this.challengeModel.find({
                 salleId: idSalle
             }).exec();
-            if (challenge) {
-                return ServiceResult.success(challenge);
+            if (challenges && challenges.length > 0) {
+                return ServiceResult.success(challenges);
             }
             return ServiceResult.notFound();
         } catch (err) {

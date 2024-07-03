@@ -106,7 +106,7 @@ export class ChallengeController {
         this.router.post('/', this.createChallenge.bind(this));
         this.router.get('/', this.getAllChallenges.bind(this));
         this.router.get('/:id', this.getChallengeById.bind(this));
-        this.router.get('/:idSalle', this.getChallengeBySalle.bind(this));
+        this.router.get('/salle/:idSalle', this.getChallengeBySalle.bind(this));
         this.router.put('/:id', this.updateChallenge.bind(this));
         this.router.delete('/:id', this.deleteChallenge.bind(this));
         return this.router;

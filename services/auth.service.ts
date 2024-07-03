@@ -93,4 +93,13 @@ export class AuthService{
             return ServiceResult.failed();
         }
     }
+    
+    async getById(userId: string): Promise<IUser | null> {
+        try {
+            const user = await this.userModel.findById(userId).exec();
+            return user;
+        } catch (err) {
+            return null;
+        }
+    }
 }

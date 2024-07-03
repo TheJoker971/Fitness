@@ -24,7 +24,7 @@ export class SalleController {
             req.body.contact,
             req.body.capacity,
             req.body.activities,
-            req.user as IUser
+            req.body.owner
         );
         switch (sr.errorCode) {
             case ServiceErrorCode.success:
@@ -83,9 +83,23 @@ export class SalleController {
         }
     }
 
+    async getAllSallesOwner2(req: Request, res: Response) {
+        const userId = req.params.userId; // Récupérer l'ID de l'utilisateur à partir des paramètres de la requête
+        const sr = await this.salleService.getAllByOwner(userId);
+        switch (sr.errorCode) {
+            case ServiceErrorCode.success:
+                res.json(sr.result);
+                break;
+            default:
+                res.status(500).end();
+                break;
+        }
+    }
+
     buildRoutes():Router{
         this.router.get('/',this.getAllSalles.bind(this));
         this.router.get('/my',SessionMiddleware.isLogged(this.authService),UserMiddleware.isOwner(),this.getAllSallesOwner.bind(this));
+        this.router.get('/owner/:userId', this.getAllSallesOwner2.bind(this));
         this.router.post('/',express.json(),SessionMiddleware.isLogged(this.authService),UserMiddleware.isOwner(),this.createSalle.bind(this));
         this.router.put('/edit/:id',express.json(),SessionMiddleware.isLogged(this.authService),UserMiddleware.isOwner(),this.editSalle.bind(this));
         this.router.delete('/delete/:id',SessionMiddleware.isLogged(this.authService),UserMiddleware.isOwner(),this.deleteSalle.bind(this));

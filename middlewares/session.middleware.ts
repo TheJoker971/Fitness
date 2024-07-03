@@ -20,7 +20,9 @@ export class SessionMiddleware {
 
             const token = authParts[1];
             const sr = await authService.getSession(token);
+            console.log(sr.result);
 
+        
             switch (sr.errorCode) {
                 case ServiceErrorCode.success:
                     req.user = sr.result?.user;
