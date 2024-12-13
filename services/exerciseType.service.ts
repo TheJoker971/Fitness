@@ -7,7 +7,7 @@ export class ExerciseTypeService {
     private exerciseTypeModel: Model<IExerciseType>;
 
     constructor(private modelRegistry: ModelRegistry) {
-        this.exerciseTypeModel = modelRegistry.exerciseTypeModel;
+        this.exerciseTypeModel= modelRegistry.exerciseTypeModel;
     }
 
     async create(name: string, description: string, targetedMuscles: string[]): Promise<ServiceResult<IExerciseType>> {
@@ -31,8 +31,8 @@ export class ExerciseTypeService {
     async update(id: string, name: string, description: string, targetedMuscles: string[]): Promise<ServiceResult<IExerciseType>> {
         try {
             const updatedExerciseType = await this.exerciseTypeModel.findByIdAndUpdate(
-                id, 
-                { name, description, targetedMuscles }, 
+                id,
+                { name, description, targetedMuscles },
                 { new: true }
             ).exec();
             if (updatedExerciseType) {
